@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Product Rating System</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .topnav {
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: rgb(31, 31, 31);
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #797a79;
+        color: rgb(255, 255, 255);
+      }
+
+      .topnav-right {
+        float: right;
+      }
+   
+    </style>
+    
+  </head>
+
+  <body>
+    <!--Navigation bar start -->
+
+    <div class="topnav">
+      <div class="topnav-right">
+        <a href="#">user name</a>
+      </div>
+    </div>
+    <!--Navigation bar ends-->
+
+    <div class="page-wrap">
+      <!-- Main -->
+      <section id="main">
+        <!-- Banner -->
+        <section id="container" style="margin: auto; width: 30%; padding: 10px">
+          <div class="inner">
+            <h1>Admin Settings</h1>
+            <h3>Enter product details</h3>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <div
+      class="container"
+      style="margin: auto; width: 30%; padding: 10px"
+    >
+
+ <div class="row">
+        <div class="col-md-6">
+                 
+        <form action="updateproduct" method="post" enctype="multipart/form-data">
+        
+         <div class="form-group">
+              <label for="name">
+                <h2>Enter product name</h5>
+              </label>
+              <input type="text" placeholder="Enter new product" name="product"id="productname" />
+              <label for="price">
+                <h2>Enter product price</h5>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter product price"
+                id="productprice"
+                name="price"
+              />
+              <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+            </div>
+           
+            <p><h2>Select product image</h2></p>
+        
+          <input type="file" name="file">
+          <br>
+          <br>
+        <input type="submit" value="Upload">
+        </form>
+                
+        </div>
+        </div>
+        </div>
+        
+
+
+</div>
+  </body>
+</html>

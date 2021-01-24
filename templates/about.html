@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>About</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+
+    <style>
+      body {
+        background: #ffd89b;
+        background: -webkit-linear-gradient(to right, #ffd89b, #19547b);
+        background: linear-gradient(to right, #ffd89b, #19547b);
+        min-height: 100vh;
+      }
+      .container-fluid {
+        margin-top: 20%;
+        margin: auto;
+        box-shadow: #797a79;
+        padding: 0 50px;
+      }
+      .topnav {
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: rgb(31, 31, 31);
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #797a79;
+        color: rgb(255, 255, 255);
+      }
+
+      .topnav-right {
+        float: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Navigation bar start -->
+
+    <div class="topnav">
+      <a href="index">Home</a>
+
+      <a href="setting">Settings</a>
+
+      <a href="search">Search</a>
+      <a href="#">About</a>
+      <div class="topnav-right">
+        <a href="#">{{User_name}}</a>
+      </div>
+    </div>
+    <header>
+      <div class="container-fluid">
+        <p style="padding-top: 5%">
+          There are many users who purchase products through E-commerce
+          websites. Through online shopping many E-commerce enterprises were
+          unable to know whether the customers are satisfied by the services
+          provided by the firm. This boosts us to develop a system where various
+          customers give reviews about the product and online shopping services,
+          which in turn help the E-commerce enterprises and manufacturers to get
+          customer opinion to improve service and merchandise through mining
+          customer reviews. An algorithm could be used to track and manage
+          customer reviews, through mining topics and sentiment orientation from
+          online customer reviews. In this system user will view various
+          products and can purchase products online. Customer gives review about
+          the merchandise and online shopping services. Certain keywords
+          mentioned in the customer review will be mined and will be matched
+          with the keywords which are already exist in the database based on the
+          comparison, system will rate the product and services provided by the
+          enterprise. This system will use text mining algorithm in order to
+          mine keywords. The System takes review of various users, based on the
+          review, system will specify whether the products and services provided
+          by the E-commerce enterprise is good, bad, or worst. We use a database
+          of sentiment based keywords along with positivity or negativity weight
+          in database and then based on these sentiment keywords mined in user
+          review is ranked. This system is a web application where user will
+          view various products and purchase products online and can give review
+          about the merchandise and online shopping services. This system will
+          help many E-commerce enterprises to improve or maintain their services
+          based on the customer review as well as to improve the merchandise
+          based on the customer review.
+        </p>
+      </div>
+    </header>
+    <!--Navigation bar stop-->
+  </body>
+</html>

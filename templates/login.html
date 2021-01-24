@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+<style>
+body {font-family: 'Roboto', sans-serif;background-image: url('../static/images/design.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  position: relative;
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+
+
+</style>
+</head>
+<body>
+ 
+
+  
+  
+
+<!--start of form of sign in-->
+
+  <div class="container" id="signin">
+    <div class="row">
+      <div class="col-md-6" style="border-right: 2px solid #cfcfcf">
+      <form>
+        <div class="form-group">
+            <label style="font-weight:bold;text-decoration: underline; font-size: 30px;">Login</label><br>         
+              <label for="uname"><h5><b>Username</b></h5></label>
+              <input type="text" placeholder="Enter Username" id="uname" required>
+
+              <label for="psw"><h5><b>Password</b></h5></label>
+              <input type="password" placeholder="Enter Password" id="psw" required>              
+             <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+          </div>
+          <button type="button" class="btn btn-outline-primary" id="submit">Login</button>
+       <script>
+        let uname;
+        let pswtext;
+
+        $("#uname").change(function () {
+            uname = $('#uname').val();
+        }); 
+
+        $("#psw").change(function () {
+            pswtext = $('#psw').val();
+        });
+
+        $("#submit").click(function (event) {
+            let message = {
+                uname: uname,
+                passwd: pswtext
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/ref",
+                data: JSON.stringify(message),
+                success: function (response) {
+                    if (response=="http://127.0.0.1:5000/")alert("Invalid userId/password");
+                    window.location.href = response;
+                },
+                error: function (data) {
+                    
+                    console.log(response);
+                },
+            });
+        });
+    </script>
+
+  </form>
+  
+</div>
+<div class="col-md-6">
+  <div class="imgcontainer">
+    
+    <img src="../static/images/signin-image.jpg" alt="Avatar" class="avatar">
+  </div>
+</div>
+</div>
+
+
+<!--end for form of sign in-->
+
+<hr>
+<!-- form for sign up-->
+<div class="container" id="signup">
+  <div class="row">
+    <div class="col-md-6" style="border-right: 2px solid #cfcfcf">
+  <form>
+    <div class="form-group">
+      <label style="font-weight:bold;text-decoration: underline; font-size: 30px;">Signup</label><br>  
+      <label for="uname"><h5><b>Username</b></h5></label>
+      <input type="text" placeholder="Enter Username" id="uname1" required>
+
+      <label for="psw"><h5><b>Password</b></h5></label>
+      <input type="password" placeholder="Enter Password" id="psw1" required>
+        
+      <label for="email"><h5><b>Email</b></h5></label>
+      <input type="text" placeholder="Enter Email" id="email" required>
+
+     
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+   
+    
+    </div>
+    <button type="button" class="btn btn-outline-primary" id="submit1">Signup</button>
+       <script>
+        let uname1;
+        let pswtext1;
+        let email;
+        $("#uname1").change(function () {
+            uname1 = $('#uname1').val();
+        }); 
+
+        $("#psw1").change(function () {
+            pswtext1 = $('#psw1').val();
+        });
+
+        $("#email").change(function () {
+            email = $('#email').val();
+        });
+        
+        $("#submit1").click(function (event) {
+            let message = {
+                uname1: uname1,
+                passwd1: pswtext1,
+                email:email
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/signup",
+                data: JSON.stringify(message),
+                success: function (response) {
+                  if (response=="http://127.0.0.1:5000/")alert("User added!");
+                            window.location.href = response;
+                   
+                },
+                error: function (data) {
+                    
+                    console.log(response);
+                },
+            });
+        });
+    </script>
+   
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.poptrox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    
+  </form>
+</div>
+<div class="col-md-6">
+   <div class="imgcontainer">
+      
+      <img src="../static/images/signup-image.jpg" alt="Avatar" class="avatar">
+    </div>
+</div>
+</div>
+
+<!-- end of form of sign up-->
+
+
+
+  
+
+</body>
+</html>

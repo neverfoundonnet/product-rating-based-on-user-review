@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta id="my-data" data-name="{% block product_Name %}{% endblock %}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <style>
+        .topnav {
+          border-radius: 5px;
+          overflow: hidden;
+          background-color: rgb(31, 31, 31);
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #797a79;
+          color: rgb(255, 255, 255);
+        }
+        
+        .topnav-right {
+          float: right;
+        }
+        </style>
+        
+
+</head>
+
+<body>
+
+<!--Navigation bar start -->		
+
+<div class="topnav">
+    <a  href="index">Home</a>
+    
+    <a href="setting">Settings</a>
+    
+      <a href="search">Search</a>
+      <a href="about">About</a>
+      <div class="topnav-right">
+         <a href="#">{% block user_name %}{% endblock %}</a>
+      </div>
+
+  </div>
+  
+<!--Navigation bar ends-->
+  <div class="page-wrap">
+  <section id="main">
+        <header id="header">
+            <div id="newtext">Product Rating System</div>
+        </header>
+        <div class="gallery">
+            <div class="content row">
+                <div class="media col-md-4">
+                    <div class="">
+                        <a href="#"><img src="{% block imagepath %}{% endblock %}" alt="Product" title="{% block imagetitle %}{% endblock %}" /></a>
+                    </div>
+                </div>
+
+                <div class="col-md-7" style="margin: auto 0;">
+                    <h3 id="mytext">{% block productName %}{% endblock %}</h3>
+                    <span class="badge badge-primary" id="mytext2" style="font-size: 25px;">{% block productPrice %}{% endblock %} </span>
+                    <h4 id="mytext2"> <span class="badge badge-success">{% block productAvgStar %}{% endblock %}</span> Stars </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <hr>
+            <div class="row">
+                <div class="col-md-6" style="border-right: 2px solid #cfcfcf">
+                    <form>
+                        <div class="form-group">
+                            <label for="uname">
+                                <h5>Your Name</h5>
+                            </label>
+                            <input type="text" palceholder="Enter Your Name" id="uname">
+                            <label for="reviewbox">
+                                <h5>Your Review</h5>
+                            </label>
+                            <textarea type="text" class="form-control" id="reviewbox" aria-describedby="reviewlHelp"
+                                placeholder="Write a Review" style="min-height:100px" name="review" required></textarea>
+                            <small id="reviewHelp" class="form-text text-muted">Tell us how you feel about the product.</small>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="submit"> Submit </button>
+                        
+                     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+                        <script>
+                                let reviewtext;
+                                let uname;
+                                let product_name=$('#my-data').data("name");
+                                $("#reviewbox").change(function () {
+                                    reviewtext = $('#reviewbox').val();
+                                });
+
+                                $("#uname").change(function () {
+                                    uname = $('#uname').val();
+                                });
+                        
+                                $("#submit").click(function (event) {
+                                    let message = {
+                                        review: reviewtext,
+                                        uname: uname,
+                                        product_name:product_name
+                                    }
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "http://127.0.0.1:5000/postreview",
+                                        data: JSON.stringify(message),
+                                        success: function (response) {
+                                            alert("Success");
+                                        },
+                                        error: function (data) {
+                                            console.log(response);
+                                        },
+                                    });
+                                });
+                            </script>
+                    </form>
+                    <hr>
+                    <p>The product rating is generated based on the review you provide</p>
+                </div>
+
+                <div class="col-md-6" id="review">
+                    <h5>Previous Reviews</h5>
+
+                 <!-- showing data from table for previous review -->
+                 {% block showPreview %}{% endblock %}
+                    
+                </div>
+            </div>
+        </div>
+
+        <footer id="footer">
+            <div class="copyright">
+                &copy; Project Team : <b>Rahul Kumar Singh | Subodh Kumar Yadav</b>
+            </div>
+        </footer>
+    </section>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.poptrox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

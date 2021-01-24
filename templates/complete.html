@@ -1,0 +1,17 @@
+{% extends "formate.html" %} {% block user_name %}{{ User_name }}{% endblock %}
+{% block title %}{{ name }}{% endblock %} {% block imagepath %}{{ imgpath
+}}{%endblock %} {% block imagetitle %}{{ name }}{% endblock %} {% block
+product_Name %}{{ name }}{% endblock %} {% block productName %}{{ name }}{%
+endblock %} {%block productPrice %}{{ data1[0][1] }}{% endblock %} {% block
+productAvgStar%}{{ data1[0][2] }}{% endblock %} {% block showPreview %} {% for
+item in data2%}
+<div class="card bg-light mycard">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{ item[0] }} &nbsp; &nbsp;
+      <span class="badge badge-success">{{ item[2] }}</span>
+    </h5>
+    <p class="card-text">{{ item[1] }}</p>
+  </div>
+</div>
+{% endfor %} {% endblock %}

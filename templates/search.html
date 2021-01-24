@@ -1,0 +1,282 @@
+<html>
+
+<head>
+  <title>Search</title>
+
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+
+  <style>
+    body {
+      background: rgb(196, 177, 177);
+
+      background: -webkit-linear-gradient(to right, #ffd89b, #19547b);
+      background: linear-gradient(to right, #ffd89b, #19547b);
+      letter-spacing: 2px;
+      min-height: 101vh;
+    }
+
+    a:hover,
+    a:active {
+      text-decoration: none;
+    }
+
+    input[type="text"],
+    select {
+      outline: none;
+    }
+
+    .col-xs-1 {
+      padding: 0;
+    }
+
+  
+
+ul{
+  padding: 0;
+}
+
+li{
+  letter-spacing: 0;
+    padding: 20px;
+    list-style: none;
+    min-height: fit-content;
+    background: #bfa5a5;
+    margin: 50px auto;
+    text-align: center;
+  transition: box-shadow .2s ease-out .2s;
+  word-spacing: 2px;
+}
+
+li > h3{
+  margin-top:0;
+  color: #E35865;
+  line-height: 2;
+}
+
+li > p{
+  color: #666;
+  line-height: 2;
+}
+
+    h1 {
+      font-family: 'Arvo', sans-serif;
+      color: #E35865;
+    }
+
+    header.container-fluid {
+      margin: 0;
+      
+      
+    }
+
+    .container {
+      max-width: 720px;
+      margin: auto;
+      padding: 0 50px;
+    }
+
+    input {
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      font-size: 20px;
+      color: rgb(0, 0, 0);
+      background: none;
+      letter-spacing: 1px;
+      word-spacing: 10px;
+      font-family: 'Arvo', sans-serif;
+      padding: 0;
+      line-height: 25px;
+    }
+
+    #searchBox {
+      padding-top: 40vh;
+    }
+
+   
+
+    .form {
+      padding: 10px 0;
+      padding-right: 15px;
+      border: 3px solid #E35865;
+
+    }
+
+    .form.col-xs-12 {
+      padding-left: 0;
+    }
+
+    .glyphicon {
+      color: #E35865;
+      font-size: 20px;
+      line-height: 25px;
+    }
+
+    .glyphicon-search {
+      cursor: pointer;
+
+    }
+
+
+
+    .bar {
+      vertical-align: super;
+      font-weight: 700;
+      font-size: 22px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+
+    li:hover {
+      box-shadow: 0 0 15px 15px rgba(0, 0, 0, .1);
+    }
+
+    /*********media query starts ***********/
+
+    @media screen and (max-width: 420px) {
+
+      #searchBar,
+      .glyphicon {
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+
+
+    .topnav {
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: rgb(31, 31, 31);
+    }
+
+    .topnav a {
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .topnav a.active {
+      background-color: #797a79;
+      color: rgb(255, 255, 255);
+    }
+
+    .topnav-right {
+      float: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--Navigation bar start -->
+
+  <div class="topnav">
+    <a href="index">Home</a>
+
+    <a href="setting">Settings</a>
+
+    <a href="#">Search</a>
+    <a href="about">About</a>
+    <div class="topnav-right">
+      <a href="#">{{ User_name }}</a>
+    </div>
+
+  </div>
+   <!--Navigation bar ends-->
+  <div class="page-wrap">
+    <header class="container-fluid">
+      <div class="container text-center" id="searchBox">
+        <h1>Search</h1>
+        <div class="form col-xs-12">
+          <input class="col-xs-11" id="searchBar" type="text" placeholder="search" />
+          <span class="glyphicon glyphicon-search col-xs-1" data-toggle="tooltip" title="Search" id="scan"></span>
+        </div>
+      </div>
+  </div>
+  </header>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <div id="mainBody" class="container text-center">
+    <ul id="results">
+      
+   
+    </ul>
+  </div>
+  <!-- <footer class="text-center">
+
+  </footer> -->
+
+
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+  <script>
+
+    var searchBarval;
+    var keyword = "";
+    var searchButton = $(".glyphicon-search");
+    var resultArea = $("#results");
+    $("#searchBar").change(function () {
+      searchBarval = $("#searchBar").val();
+    });
+    var searchUrl = "http://127.0.0.1:5000/find";
+    $("#scan").click(function (event) {
+
+      let message = {
+        searchBarval: searchBarval
+      }
+      $.ajax({
+        type: "POST",
+        url: searchUrl,
+        data: JSON.stringify(message),
+        
+        success: function (response) {
+           var results = response;
+           $.each(response,function(index,value){
+             var link= 'http://127.0.0.1:5000/'+value[1];
+              var elem1 = $('<a>');
+              elem1.attr("href",link);
+              elem1.attr("target","_blank");
+              var elem2 = $('<li>');
+              elem2.append($('<h3>').text(value[1]));
+              elem1.append(elem2);
+              resultArea.append(elem1);
+              
+              
+               
+            });
+            
+            
+        }
+      });
+
+    });
+  </script>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.poptrox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+
+
+</body>
+
+</html>

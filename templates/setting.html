@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Settings</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/favicon.ico') }}"
+    />
+
+    <style>
+      body {
+        background: #ffd89b;
+        background: -webkit-linear-gradient(to right, #ffd89b, #19547b);
+        background: linear-gradient(to right, #ffd89b, #19547b);
+        min-height: 100vh;
+      }
+
+      .topnav {
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: rgb(31, 31, 31);
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #797a79;
+        color: rgb(255, 255, 255);
+      }
+
+      .topnav-right {
+        float: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Navigation bar start -->
+
+    <div class="topnav">
+      <a href="index">Home</a>
+
+      <a href="#">Settings</a>
+
+      <a href="search">Search</a>
+      <a href="about">About</a>
+      <div class="topnav-right">
+        <a href="#">{{User_name}}</a>
+      </div>
+    </div>
+    <!--Navigation bar stop-->
+    <div class="page-wrap">
+      <section id="main">
+        <header
+          id="header"
+          style="
+            background: -webkit-linear-gradient(to right, #ffd89b, #19547b);
+            background: linear-gradient(to right, #ffd89b, #19547b);
+          "
+        >
+          <div id="newtext">Accounts Settings</div>
+        </header>
+      </section>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <label for="email">
+                <h5>Change Email Address</h5>
+              </label>
+              <input type="text" placeholder="Enter new email" id="email" />
+              <label for="passwords">
+                <h5>Change password</h5>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter new password"
+                id="password"
+              />
+
+              <label for="repasswords">
+                <h5>Enter password again</h5>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter new password"
+                id="repassword"
+              />
+              <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+            </div>
+            <button type="button" class="btn btn-outline-primary" id="submit">
+              Save
+            </button>
+
+            <script>
+              let emailtext;
+              let passwdtext;
+              let repasswd;
+
+              $("#email").change(function () {
+                emailtext = $("#email").val();
+              });
+
+              $("#password").change(function () {
+                passwdtext = $("#password").val();
+              });
+
+              $("#repassword").change(function () {
+                repasswd = $("#repassword").val();
+              });
+
+              $("#submit").click(function (event) {
+                let message = {
+                  emailtext: emailtext,
+                  passwdtext: passwdtext,
+                };
+
+                $.ajax({
+                  type: "POST",
+                  url: "http://127.0.0.1:5000/updatepass",
+                  data: JSON.stringify(message),
+                  success: function (response) {
+                    if (response == "http://127.0.0.1:5000/setting")
+                      alert("Change saved!");
+                    window.location.href = response;
+                  },
+                  error: function (data) {
+                    console.log(response);
+                  },
+                });
+              });
+            </script>
+
+            <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.poptrox.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
